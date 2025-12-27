@@ -1,0 +1,49 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# 민감 정보
+terraform/terraform.tfvars
+*.pem
+*.key
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node.js (Dashboard/Storefront)
+node_modules/
+.next/
+build/
+dist/
+.env
+.env.local
+.env.production
+
+# Python (Saleor Backend)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 로그
+*.log
+logs/
+
+# Docker
+*.tar

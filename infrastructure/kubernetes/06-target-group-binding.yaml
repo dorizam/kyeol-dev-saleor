@@ -1,0 +1,26 @@
+# TargetGroupBinding
+# ALB Target Group과 Kubernetes Service 연결
+# AWS Load Balancer Controller 필요
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: backend-tgb
+  namespace: kyeol-dev
+spec:
+  serviceRef:
+    name: backend-service
+    port: 8000
+  targetGroupARN: ${BACKEND_TARGET_GROUP_ARN}
+  targetType: ip
+---
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: storefront-tgb
+  namespace: kyeol-dev
+spec:
+  serviceRef:
+    name: storefront-service
+    port: 3000
+  targetGroupARN: ${STOREFRONT_TARGET_GROUP_ARN}
+  targetType: ip
