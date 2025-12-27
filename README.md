@@ -41,3 +41,4 @@ dev-saleor/
 
 - [QUICK_START.md](./QUICK_START.md) - 단계별 배포 가이드
 - [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - 문제 해결 가이드
+- [DASHBOARD_GUIDE.md](./DASHBOARD_GUIDE.md) - dashboard 간단 가이드
