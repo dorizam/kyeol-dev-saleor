@@ -27,9 +27,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "kyeol-terraform-state"
+    bucket         = "kyeol-terraform-state-sol"
     key            = "dev/terraform.tfstate"
-    region         = "ap-northeast-2"
+    region         = "ap-northeast-3"
     encrypt        = true
     dynamodb_table = "kyeol-terraform-locks"
   }
