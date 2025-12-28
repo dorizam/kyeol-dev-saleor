@@ -30,11 +30,16 @@ spec:
             secretKeyRef:
               name: storefront-secrets
               key: AUTH_SECRET
-        - name: NEXT_PUBLIC_SALEOR_API_URL
+        - name: NEXT_PUBLIC_SALEOR_API_URL  # 수정
           valueFrom:
             secretKeyRef:
               name: storefront-secrets
-              key: SALEOR_API_URL
+              key: NEXT_PUBLIC_SALEOR_API_URL  # https 주소를 가져오도록 수정
+        - name: SALEOR_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: storefront-secrets
+              key: SALEOR_API_URL              # http(내부) 주소를 가져오도록 추가
         - name: NEXTAUTH_URL
           valueFrom:
             secretKeyRef:
