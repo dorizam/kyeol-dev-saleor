@@ -13,7 +13,7 @@ OIDC_PROVIDER_ARN=$(terraform output -raw eks_oidc_provider_arn)
 VPC_ID=$(terraform output -raw vpc_id)
 cd - > /dev/null
 
-AWS_REGION="ap-northeast-2"
+AWS_REGION="ap-northeast-3"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
 echo "Cluster: $CLUSTER_NAME"
