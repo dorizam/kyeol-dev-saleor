@@ -33,7 +33,7 @@ data:
   
   # PUBLIC_URL - 썸네일 URL 생성에 필수! (트러블슈팅 25, 26)
   # 중요: 커스텀 도메인 사용 시 https로 설정, Backend Pod는 여전히 HTTP 수신
-  PUBLIC_URL: "https://${CLOUDFRONT_DOMAIN}"
+  PUBLIC_URL: "http://${CLOUDFRONT_DOMAIN}"
   
   # S3 미디어 스토리지 설정 (트러블슈팅 14, 23, 24)
   # 스크립트 04-deploy-apps.sh에서 자동 설정됨
