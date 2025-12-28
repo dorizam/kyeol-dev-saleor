@@ -19,6 +19,8 @@ docker --version     # 24.x 이상
 helm version         # 3.x 이상
 node --version       # v20 또는 v22 권장 (Dashboard 빌드용)
 jq --version         # jq-1.7
+# cd kyeol-dev-saleor/source/saleor-dashboard
+pnpm --version       # 10.23.0
 
 # AWS 자격증명 확인
 aws sts get-caller-identity
