@@ -152,7 +152,7 @@ variable "acm_certificate_arn_cloudfront" {
 }
 
 variable "acm_certificate_arn_alb" {
-  description = "ACM Certificate ARN for ALB (ap-northeast-2)"
+  description = "ACM Certificate ARN for ALB (ap-northeast-3)"
   type        = string
   default     = ""
 }
