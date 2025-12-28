@@ -879,7 +879,7 @@ if ENABLE_SSL:
 - Backend가 HTTPS로 리다이렉트 → ALB가 다시 HTTP로 전달 → 무한 루프
 
 **해결:**
-`PUBLIC_URL`을 `http://`로 설정:
+1. `PUBLIC_URL`을 `http://`로 설정:
 ```bash
 kubectl patch configmap backend-config -n kyeol-dev --type merge -p '{
   "data": {
@@ -887,6 +887,24 @@ kubectl patch configmap backend-config -n kyeol-dev --type merge -p '{
   }
 }'
 kubectl rollout restart deployment backend -n kyeol-dev
+```
+2. 스크립트 재실행: 수정된 02-configmap.yaml가 적용되도록 배포 스크립트를 실행합니다.
+
+```bash
+# 이 스크립트가 ConfigMap을 새로고침하고 Secret을 패치합니다.
+./scripts/04-deploy-apps.sh
+```
+3. 파드 강제 재시작 (확인 사살): 스크립트 실행 후 설정이 완벽히 새 파드에 주입되도록 아래 명령어를 입력합니다.
+
+```bash
+# 백엔드 / 프론트엔드 재시작 (무한 리다이렉트 방지 설정 반영 / 내부 API 주소 설정 반영)
+kubectl rollout restart deployment backend storefront -n kyeol-dev
+```
+
+4. 상태 확인: 파드가 새로 다 떴는지 확인합니다.
+
+```bash
+kubectl get pods -n kyeol-dev -w
 ```
 
 **코드 수정:**
