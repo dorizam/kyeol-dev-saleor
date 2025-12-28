@@ -18,6 +18,7 @@ kubectl version      # 1.28 이상
 docker --version     # 24.x 이상
 helm version         # 3.x 이상
 node --version       # v20 또는 v22 권장 (Dashboard 빌드용)
+jq --version         # jq-1.7
 
 # AWS 자격증명 확인
 aws sts get-caller-identity
