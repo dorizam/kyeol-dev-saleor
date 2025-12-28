@@ -60,20 +60,39 @@ echo "4. Storefront 배포..."
 substitute_and_apply "$K8S_DIR/04-storefront-deployment.yaml"
 
 # 4-1. Storefront Secrets 업데이트 (CloudFront 도메인 변경 대응)
-echo "4-1. Storefront Secrets 업데이트..."
+#echo "4-1. Storefront Secrets 업데이트..."
+#if kubectl get secret storefront-secrets -n $NAMESPACE &>/dev/null; then
+#    NEW_API_URL=$(echo -n "https://$FINAL_DOMAIN/graphql/" | base64)
+#    NEW_NEXTAUTH_URL=$(echo -n "https://$FINAL_DOMAIN" | base64)
+#    kubectl patch secret storefront-secrets -n $NAMESPACE --type merge -p "{
+#      \"data\": {
+#        \"SALEOR_API_URL\": \"$NEW_API_URL\",
+#        \"NEXTAUTH_URL\": \"$NEW_NEXTAUTH_URL\"
+#      }
+#    }"
+#    echo "   - storefront-secrets 업데이트 완료 (Domain: $FINAL_DOMAIN)"
+#else
+#    echo "   - storefront-secrets 없음 (05-run-migrations.sh에서 생성됨)"
+#fi
+
+# 4-1. Storefront Secrets 업데이트 (가장 중요: 내부/외부 주소 분리)
+echo "4-1. Storefront Secrets 업데이트 중..."
+
+# 1) 외부 브라우저 접속용 주소 (HTTPS)
+EXTERNAL_API_URL="https://${FINAL_DOMAIN}/graphql/"
+# 2) 서버 내부 통신용 주소 (HTTP - EAI_AGAIN 에러 해결)
+INTERNAL_API_URL="http://backend.${NAMESPACE}.svc.cluster.local:8000/graphql/"
+
 if kubectl get secret storefront-secrets -n $NAMESPACE &>/dev/null; then
-    NEW_API_URL=$(echo -n "https://$FINAL_DOMAIN/graphql/" | base64)
-    NEW_NEXTAUTH_URL=$(echo -n "https://$FINAL_DOMAIN" | base64)
     kubectl patch secret storefront-secrets -n $NAMESPACE --type merge -p "{
       \"data\": {
-        \"SALEOR_API_URL\": \"$NEW_API_URL\",
-        \"NEXTAUTH_URL\": \"$NEW_NEXTAUTH_URL\"
+        \"SALEOR_API_URL\": \"$(echo -n "$INTERNAL_API_URL" | base64)\",
+        \"NEXT_PUBLIC_SALEOR_API_URL\": \"$(echo -n "$EXTERNAL_API_URL" | base64)\"
       }
     }"
-    echo "   - storefront-secrets 업데이트 완료 (Domain: $FINAL_DOMAIN)"
-else
-    echo "   - storefront-secrets 없음 (05-run-migrations.sh에서 생성됨)"
+    echo "   - storefront-secrets에 내부/외부 주소 분리 적용 완료"
 fi
+
 
 # 5. TargetGroupBinding 배포
 echo "5. TargetGroupBinding 배포..."
