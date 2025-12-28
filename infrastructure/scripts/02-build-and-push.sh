@@ -5,7 +5,7 @@
 
 set -e
 
-AWS_REGION="ap-northeast-2"
+AWS_REGION="ap-northeast-3"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TERRAFORM_DIR="$SCRIPT_DIR/../terraform"
