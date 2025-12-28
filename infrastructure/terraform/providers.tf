@@ -31,7 +31,7 @@ terraform {
     key            = "dev/terraform.tfstate"
     region         = "ap-northeast-3"
     encrypt        = true
-    dynamodb_table = "kyeol-terraform-locks"
+    dynamodb_table = "kyeol-terraform-locks-sol"
   }
 }
 
