@@ -97,7 +97,7 @@ variable "eks_max_capacity" {
 variable "rds_instance_class" {
   description = "RDS instance class"
   type        = string
-  default     = "db.m5.large"
+  default     = "db.t3.large"
 }
 
 variable "rds_engine_version" {
