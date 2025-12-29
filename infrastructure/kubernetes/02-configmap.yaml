@@ -29,7 +29,10 @@ data:
   ALLOW_LOGIN_WITHOUT_CONFIRMATION: "true"
   
   # CSRF/CORS - CloudFront 도메인은 배포 후 설정
-  # CSRF_TRUSTED_ORIGINS: "https://YOUR_CLOUDFRONT_DOMAIN"
+  # [수정 포인트 1] CSRF 설정을 도메인 변수로 변경
+  # 기존: https://YOUR_CLOUDFRONT_DOMAIN
+  # 변경: https://${CLOUDFRONT_DOMAIN} (스크립트가 자동으로 dev.yesol.shop으로 바꿔줌)
+  CSRF_TRUSTED_ORIGINS: "https://${CLOUDFRONT_DOMAIN}"
   
   # PUBLIC_URL - 썸네일 URL 생성에 필수! (트러블슈팅 25, 26)
   # 중요: 커스텀 도메인 사용 시 https로 설정, Backend Pod는 여전히 HTTP 수신
